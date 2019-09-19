@@ -1,0 +1,73 @@
+.sidebar {
+    height: 100vh; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: parent; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+body {
+  overflow: hidden;
+}
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  color: #818181;
+  display: block;
+  font-family: 'Oleo Script';
+  font-size: 22px;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px;
+  padding-top: 20px;
+  background-color: #818181;
+  height: 100vh;
+}
+
+.navbar {
+  font-family: 'Oleo Script';
+  font-size: 25px;
+  background-color: #111;
+}
+
+.navbar-brand {
+  font-family: 'Oleo Script';
+  font-size: 50px;
+}
+
+.login-container {
+  top: parent;
+  height: 100vh;
+  background-color: #818181;
+}
+
+.login-header {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+.login-header h2 {
+  text-align: center;
+  font-family: 'Oleo Script';
+
+}
+
+.login-header table {
+  border-collapse: separate;
+  border-spacing: 10px;
+  font-family: 'Kreon';
+  font-size: 17px;
+  
+}
