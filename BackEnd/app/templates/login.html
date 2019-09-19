@@ -1,24 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>UltimateList</title>
-    <!--FONTS-->
-    <link href="https://fonts.googleapis.com/css?family=Kreon|Oleo+Script|Permanent+Marker&display=swap" rel="stylesheet">
-    <!--CSS-->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="/WebContent/css/style.css" rel="stylesheet">
-    <!--JS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-</head>
-<body>
-    <nav class="navbar navbar-dark  navbar-expand">
-        <a href="index.html" class="navbar-brand text-white">Placeholder</a>
-    </nav>
+{% extends 'base.html' %}
+
+{% block main_content %}
     <div class="login-container">
         <div class="login-header">
            <h2>Please sign in</h2> 
@@ -43,5 +25,4 @@
         </form>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
