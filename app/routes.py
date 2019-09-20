@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect
 from app import app
 from app.forms import LoginForm, RegisterForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User
+from app.models import User, TopAnime
 from app import db
 
 @app.route('/')
@@ -50,3 +50,9 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect('/login')
     return render_template('register.html', form=form)
+
+
+@app.route('/top/anime')
+def top_anime():
+    top_anime_list = TopAnime.query.all()
+    return render_template('topanime.html',top_anime_list=top_anime_list)

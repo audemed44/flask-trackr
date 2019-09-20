@@ -31,3 +31,16 @@ class Lists(db.Model):
 
     def __repr__(self):
         return '<List {} {}>'.format(self.user_id,self.media_id)
+
+
+class TopAnime(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    rank = db.Column(db.Integer)
+    mal_id = db.Column(db.Integer)
+    title = db.Column(db.String(128))
+    image_url = db.Column(db.String(256))
+    episodes = db.Column(db.Integer)
+    mal_score = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Top Anime {} {} {}'.format(self.rank,self.title,self.mal_score)

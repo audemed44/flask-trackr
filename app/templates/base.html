@@ -10,17 +10,84 @@
     <!--CSS-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <!--JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-dark  navbar-expand">
-        <a href="#" class="navbar-brand text-white">Placeholder</a>
+    <nav class="navbar navbar-dark  navbar-expand sticky-top">
+        <a href="{{ url_for('index')}}" class="navbar-brand text-white">Placeholder</a>
         {% block navbar_content %}
         {% endblock %}
     </nav>
+    {%  if current_user.is_authenticated %}
+    <nav class="navbar navbar-light bg-secondary navbar-expand navbar-below-primary">
+
+            <div class="dropdown show">
+                <a class="nav-item nav-link text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Anime
+                </a>
+                  
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{{ url_for('top_anime')}}">Top Anime</a>
+                <a class="dropdown-item" href="#">Anime Search</a>
+                <a class="dropdown-item" href="#">My Anime</a>
+            </div>
+        </div>
+        <div class="dropdown show">
+                <a class="nav-item nav-link text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Movies
+                </a>
+                  
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">Top Movies</a>
+                <a class="dropdown-item" href="#">Movie Search</a>
+                <a class="dropdown-item" href="#">My Movies</a>
+            </div>
+        </div>
+        <div class="dropdown show">
+                <a class="nav-item nav-link text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Games
+                </a>
+                  
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">Top Games</a>
+                <a class="dropdown-item" href="#">Games Search</a>
+                <a class="dropdown-item" href="#">My Games</a>
+            </div>
+        </div>
+        <div class="dropdown show">
+                <a class="nav-item nav-link text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Books
+                </a>
+                  
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">Top Books</a>
+                <a class="dropdown-item" href="#">Books Search</a>
+                <a class="dropdown-item" href="#">My Books</a>
+            </div>
+        </div>
+        <!--<a href="{{ url_for('top_anime')}}" class="nav-item nav-link text-white">Anime</a>
+        <a href="#" class="nav-item nav-link text-white">Movies</a>
+        <a href="#" class="nav-item nav-link text-white">Games</a>
+        <a href="#" class="nav-item nav-link text-white">Books</a> -->
+        <ul class="navbar-nav ml-auto">
+        <form class = "form-inline">
+                <select class="form-control">
+                        <option value="all">All</option>
+                        <option value="anime">Anime</option>
+                        <option value="movies">Movies</option>
+                        <option value="games">Games</option>
+                        <option value="books">Books</option>
+                      </select>                      
+            <input type="search" class="form-control ml-auto" placeholder="Search"><button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
+        </form>
+    </ul>
+
+    </nav>
+    {% endif %}
     {% block main_content %}
     {% endblock %}
 </body>

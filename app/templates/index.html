@@ -5,20 +5,26 @@
             <li><a href="login" class="nav-link ">Login</a></li>
             <li><a href="register" class="nav-link ">Register</a></li>
             {% else %}
-            <li><a href="" class="nav-link">{{ current_user.username }}</a></li>
-            <li><a href="logout" class="nav-link">Logout</a></li>
+            <li><div class="dropdown show">
+                <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ current_user.username }}
+                </a>
+              
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{{ url_for('index')}}">Home</a>
+                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="#">Lists</a>
+                  <a class="dropdown-item" href="{{ url_for('logout')}}">Logout</a>
+                </div>
+              </div></li>
             {% endif %}
         </ul>
     {% endblock %}
     {% block main_content %}
     {%  if current_user.is_authenticated %}
-    <div class="sidebar">
-        <a href="#">Games</a>
-        <a href="#">Movies</a>
-        <a href="#">Anime</a>
-        <a href="#">Books</a>
-    </div>
-    <div class="main">    
+    <div class="main">   
+        {% block list_content %}
+        {% endblock %} 
     </div>
     {% else %}
     <div class = "login-container">

@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block list_content %}
+<center>
+<div class="table-container">
+    <table>
+    <tr>
+        <th>Rank</th>
+        <th>Title</th>
+        <th>Score</th>
+        <th>Your Score</th>
+        <th>Status</th>
+    </tr>
+    {% for anime in top_anime_list %}
+        <tr>
+            <td class = "top-anime-rank">{{ anime.rank }}</td>
+            <td><img src="{{anime.image_url}}" style="width: 50px; height: 70px; margin-right:15px;"/>{{ anime.title }}</td>
+            <td>{{ anime.mal_score }}</td>
+            <td>N/A</td>
+            <td><button class="btn btn-secondary">+</button></td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</center>
+{% endblock %}
