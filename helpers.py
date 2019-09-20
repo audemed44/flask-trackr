@@ -51,5 +51,6 @@ def cleanLists():
         print('Lists cleaned!')
         return True
         
-
-    
+#if __name__ == '__main__':
+    # cleanLists()
+    # getTopAnime()

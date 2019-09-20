@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f5d8715e9b7d
+Revision ID: 6064fca396c8
 Revises: 
-Create Date: 2019-09-21 02:15:12.053754
+Create Date: 2019-09-21 02:46:54.856756
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f5d8715e9b7d'
+revision = '6064fca396c8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,7 +26,7 @@ def upgrade():
     sa.Column('image_url', sa.String(length=256), nullable=True),
     sa.Column('episodes', sa.Integer(), nullable=True),
     sa.Column('mal_score', sa.String(length=4), nullable=True),
-    sa.Column('synopsis', sa.String(length=1000), nullable=True),
+    sa.Column('synopsis', sa.Text(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_anime_mal_id'), 'anime', ['mal_id'], unique=True)

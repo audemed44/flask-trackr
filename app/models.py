@@ -31,7 +31,7 @@ class Lists(db.Model):
     user_score = db.Column(db.String(4))
 
     def __repr__(self):
-        return '<List {} {}>'.format(self.user_id,self.media_id)
+        return '<List {} {} {} {}>'.format(self.user_id,self.media_id, self.user_score, self.media)
 
 
 class TopAnime(db.Model):
@@ -54,7 +54,7 @@ class Anime(db.Model):
     image_url = db.Column(db.String(256))
     episodes = db.Column(db.Integer)
     mal_score = db.Column(db.String(4))
-    synopsis = db.Column(db.String(1000))
+    synopsis = db.Column(db.Text())
 
     def __repr__(self):
         return '<Anime {} {} {}'.format(self.rank, self.title, self.mal_score)
