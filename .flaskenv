@@ -1,1 +1,2 @@
 FLASK_APP=m3.py
+FLASK_DEBUG=1

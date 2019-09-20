@@ -5,23 +5,24 @@
         <div class="login-header">
            <h2>Please sign in</h2> 
            <p>Don't have an account? <a href="register">Register.</a> It's free!</p>
-        <form action="">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
             <center><table>
                 <tr>
-                    <td><label for="username">Username</label></td>
+                    <td>{{ form.username.label }}</td>
                 </tr>
                 <tr>
-                        <td><input type="text" name="username" id="username"></td>
+                        <td>{{ form.username(size=32) }}</td>
                 </tr>
                 <tr>
-                    <td><label for="password">Password</label></td>
+                    <td>{{ form.password.label }}</td>
                     
                 </tr>
                 <tr>
-                        <td><input type="password" name="password" id="password"></td>
+                        <td>{{ form.password(size=32)}} </td>
                 </tr>
             </table></center> <br>
-            <center><input type="submit" value="Log In" class="btn btn-secondary"></center>
+            <center>{{ form.submit(class_="btn btn-secondary") }}</center>
         </form>
         </div>
     </div>
