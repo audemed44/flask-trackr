@@ -11,13 +11,18 @@
         </ul>
     {% endblock %}
     {% block main_content %}
+    {%  if current_user.is_authenticated %}
     <div class="sidebar">
         <a href="#">Games</a>
         <a href="#">Movies</a>
         <a href="#">Anime</a>
         <a href="#">Books</a>
     </div>
-    <div class="main">
-           
+    <div class="main">    
     </div>
+    {% else %}
+    <div class = "login-container">
+
+    </div>
+    {%  endif %}
     {% endblock %}
