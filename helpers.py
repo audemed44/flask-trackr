@@ -1,5 +1,5 @@
 import requests
-from app.models import TopAnime, Anime
+from app.models import TopAnime, Anime, User, Lists
 from app import db
 
 def getTopAnime():
@@ -38,4 +38,18 @@ def getAnime(user_mal_id):
         print('Didn\'t get correct response')
         return False
 
+def cleanLists():
+    exists = Lists.query.all()
+    print(exists)
+    if exists is None:
+        print('Empty table')
+        return False
+    elif exists:
+        for l in exists:
+            db.session.delete(l)
+        db.session.commit()
+        print('Lists cleaned!')
+        return True
+        
 
+    

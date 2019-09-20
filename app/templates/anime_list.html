@@ -2,6 +2,7 @@
 {% block list_content %}
 <center>
 <div class="table-container">
+    {% if anime_list %}
     <table>
     <tr>
         <th>Rank</th>
@@ -19,6 +20,9 @@
         </tr>
     {% endfor %}
     </table>
+    {% else %}
+    <p>Empty list! Add from top anime or by searching.</p>
+    {% endif %}
 </div>
 </center>
 {% endblock %}

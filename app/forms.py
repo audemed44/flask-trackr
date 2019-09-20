@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 from app.models import User
 
@@ -25,4 +25,11 @@ class RegisterForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
-#class AddToListForm(FlaskForm):
+class AddToListForm(FlaskForm):
+    score = StringField('Score', validators=[DataRequired()])
+    status = SelectField('Status', choices=[('completed', 'Completed'), ('watching', 'Watching'), ('dropped', 'Dropped'),('ptw','Plan to Watch')])
+    submit = SubmitField('Add to List')
+    def validate_score(self, score):
+        if float(score) > 10.0 or float(score) < 0.0:
+            raise ValidationError('Score must be between 0 to 10')
+     

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect
 from app import app
-from app.forms import LoginForm, RegisterForm
+from app.forms import LoginForm, RegisterForm, AddToListForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User, TopAnime, Lists
 from app import db
@@ -56,14 +56,16 @@ def register():
 @app.route('/top/anime')
 def top_anime():
     top_anime_list = TopAnime.query.all()
-    return render_template('topanime.html',top_anime_list=top_anime_list)
+    form = AddToListForm()
+    return render_template('topanime.html',top_anime_list=top_anime_list,form=form)
 
-@app.route('/addToList/<string:id>&<string:media>')
-def add_to_list(id, media):
+@app.route('/addToList/<string:id>&<string:media>&<string:score>')
+def add_to_list(id, media, score):
+    form = AddToListForm()
     if current_user.is_authenticated:
         exists = Lists.query.filter_by(user_id=current_user.id, media=media, media_id=id).first()
         if exists is None:
-            list_item = Lists(user_id=current_user.id, media=media, media_id=id)
+            list_item = Lists(user_id=current_user.id, media=media, media_id=id, user_score=form.score.data)
             db.session.add(list_item)
             db.session.commit()
             flash('Added to List!')
