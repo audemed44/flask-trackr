@@ -36,7 +36,7 @@ class Lists(db.Model):
 class TopAnime(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     rank = db.Column(db.Integer)
-    mal_id = db.Column(db.Integer)
+    mal_id = db.Column(db.Integer, index=True, unique=True)
     title = db.Column(db.String(128))
     image_url = db.Column(db.String(256))
     episodes = db.Column(db.Integer)
@@ -44,3 +44,17 @@ class TopAnime(db.Model):
 
     def __repr__(self):
         return '<Top Anime {} {} {}'.format(self.rank,self.title,self.mal_score)
+
+class Anime(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    rank = db.Column(db.Integer)
+    mal_id = db.Column(db.Integer, index=True, unique=True)
+    title = db.Column(db.String(128))
+    image_url = db.Column(db.String(256))
+    episodes = db.Column(db.Integer)
+    mal_score = db.Column(db.String)
+    synopsis = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Anime {} {} {}'.format(self.rank, self.title, self.mal_score)
+    
