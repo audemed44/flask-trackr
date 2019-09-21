@@ -74,14 +74,16 @@ body {
 }
 
 .table-container table{
-  border-collapse: separate;
+ /* border-collapse: separate; */
   border-spacing: 10px;
   font-family: 'Kreon';
   font-size: 17px;
+  width: 100%;
 }
 
 .table-container table th {
-  text-align: center;
+ 
+
 }
 
 .top-anime-rank {

@@ -3,20 +3,24 @@
 <center>
 <div class="table-container">
     {% if anime_list %}
-    <table>
+    <table class="table">
+            <thead class ="thead-light">
     <tr>
-        <th>Rank</th>
-        <th>Title</th>
-        <th>MAL Score</th>
+        </th>
+        <th scope="col">Rank</th>
+        <th scope="col">Title</th>
+        <th scope="col">MAL Score</th>
         {% if request.path == '/animeList' %}
-        <th><a href="{{url_for('anime_list', sort_type='user')}}">My Score</a</th>
+        <th scope="col"><a href="{{url_for('anime_list', sort_type='user')}}">My Score</a</th>
         {% else %}
-        <th><a href="{{url_for('anime_list')}}">My Score</a</th>
+        <th scope="col"><a href="{{url_for('anime_list')}}">My Score</a</th>
         {% endif %}
-        <th>Delete</th>
-        <th>Edit</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Edit</th>
 
     </tr>
+    </thead>
+    <tbody>
     {% for anime in anime_list %}
         <tr>
                 <td class = "top-anime-rank">{{ anime.rank }}</td>
@@ -27,6 +31,7 @@
                 <td><a href-"#" class="btn btn-primary"><i class = "fa fa-edit"></i></a></td>
         </tr>
     {% endfor %}
+</tbody>
     </table>
     {% else %}
     <p>Empty list! Add from top anime or by searching.</p>

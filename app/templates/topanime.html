@@ -2,14 +2,17 @@
 {% block list_content %}
 <center>
 <div class="table-container">
-    <table>
-    <tr>
+    <table class="table">
+    <thead class = "thead-light">
+        <tr>
         <th>Rank</th>
         <th>Title</th>
         <th>Score</th>
         <th>Your Score</th>
         <th>Status</th>
     </tr>
+</thead>
+    <tbody>
     {% for anime in top_anime_list %}
         <tr>
             <td class = "top-anime-rank">{{ anime.rank }}</td>
@@ -42,6 +45,7 @@
             {% endif %}
         </tr>
     {% endfor %}
+</tbody>
     </table>
 </div>
 </center>

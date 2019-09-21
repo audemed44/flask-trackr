@@ -57,16 +57,24 @@ def get_mal_score(get_mal_id):
         return 0
     return anime.rank
 
-def get_search_results(search_string, page_number='1'):
+def get_search_results(search_string, result_limit='8'):
     search_string.strip()
     search_string.replace(" ","%20")
-    page_number.strip()
-    api_url = 'https://api.jikan.moe/v3/search/anime/?q=' + str(search_string) +'&page=' + str(page_number)
+    result_limit.strip()
+    api_url = 'https://api.jikan.moe/v3/search/anime/?q=' + str(search_string) +'&limit=' + str(result_limit)
     response = requests.get(api_url)
     print(response)
+    if response.status_code == 200:
+        print('HERE')
+        json = response.json()
+        print(json)
+        for i in range(8):
+            anime_id = json['results'][i]['mal_id']
+            print(anime_id)
+            getAnime(anime_id)
 
 
-if __name__ == '__main__':
-    # cleanLists()
-    # getTopAnime()
-    get_search_results('Gintama')
+#if __name__ == '__main__':
+#     # cleanLists()
+#     # getTopAnime()
+     #get_search_results('Naruto')
