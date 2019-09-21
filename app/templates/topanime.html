@@ -20,7 +20,8 @@
             <td>{{ anime.mal_score }}</td>
             {% if id_dict[anime.mal_id|string] %}
             <td>{{ id_dict[anime.mal_id|string] }}</td>
-            <td>Edit</td>
+            <td><a href="{{url_for('delete_anime',id=anime.mal_id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                <a href-"#" class="btn btn-primary"><i class = "fa fa-edit"></i></a></td>
             {%  else %}
             <td>N/A</td>
             <td>
@@ -39,6 +40,7 @@
                     {{ form.media_id(value=anime.mal_id)}}
                     {{ form.media(value='anime')}}
                     {{form.submit(class_="btn btn-primary")}}
+                    <input type="hidden" name="parent-url" value="top_anime">
                     <input type="submit" class="btn btn-primary" value="+">
                   </form>
             </a></td>

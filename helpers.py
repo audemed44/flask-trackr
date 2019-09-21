@@ -72,7 +72,7 @@ def get_search_results(search_string, result_limit='8'):
             anime_id = json['results'][i]['mal_id']
             print(anime_id)
             getAnime(anime_id)
-
+    return response
 
 #if __name__ == '__main__':
 #     # cleanLists()

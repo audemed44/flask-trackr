@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-dark  navbar-expand sticky-top">
-        <a href="{{ url_for('index')}}" class="navbar-brand text-white">Placeholder</a>
+        <a href="{{ url_for('index')}}" class="navbar-brand text-white">trackr</a>
         {% block navbar_content %}
         {% endblock %}
     </nav>
@@ -74,7 +74,7 @@
         <a href="#" class="nav-item nav-link text-white">Games</a>
         <a href="#" class="nav-item nav-link text-white">Books</a> -->
         <ul class="navbar-nav ml-auto">
-        <form class = "form-inline" > 
+        <form class = "form-inline" action="{{ url_for('search_anime')}}"> 
                 <select class="form-control" name="select-category">
                         <option value="all">All</option>
                         <option value="anime">Anime</option>
@@ -82,7 +82,7 @@
                         <option value="games">Games</option>
                         <option value="books">Books</option>
                       </select>                      
-            <input name="search-base" type="search" class="form-control ml-auto" placeholder="Search"><button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
+            <input name="search_base" type="search" class="form-control ml-auto" placeholder="Search"><button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
         </form>
     </ul>
 
@@ -102,5 +102,11 @@
         {% endif %}
         {% endwith %}
     {% endblock %}
+    <script>
+    $('.dropdown-menu').on('click', function(e) {
+  e.stopPropagation();
+});
+    </script>
+
 </body>
 </html>

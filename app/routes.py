@@ -4,7 +4,7 @@ from app.forms import LoginForm, RegisterForm, AddToListForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User, TopAnime, Lists
 from app import db
-from helpers import getAnime, get_mal_score
+from helpers import getAnime, get_mal_score, get_search_results
 
 @app.route('/')
 @app.route('/index')
@@ -65,21 +65,6 @@ def top_anime():
     form = AddToListForm()
     return render_template('topanime.html',top_anime_list=top_anime_list,form=form,id_dict=id_dict)
 
-# @app.route('/addToList/<string:id>&<string:media>', methods = ['GET','POST'])
-# def add_to_list(id, media):
-#     form = AddToListForm()
-#     if current_user.is_authenticated:
-#         exists = Lists.query.filter_by(user_id=current_user.id, media=media, media_id=id).first()
-#         if exists is None:
-#             list_item = Lists(user_id=current_user.id, media=media, media_id=id, user_score=form.score.data)
-#             db.session.add(list_item)
-#             db.session.commit()
-#             flash('Added to List!')
-#             return redirect('/top/anime')
-#         elif exists:
-#             flash('Already in List!')
-#             return redirect('/top/anime')
-
 @app.route('/addAnime')
 def add_anime():
     form = AddToListForm()
@@ -93,10 +78,10 @@ def add_anime():
             db.session.add(list_item)
             db.session.commit()
             flash('Added to List!')
-            return redirect('/top/anime')
+            return redirect(url_for('anime_list'))
         elif exists:
             flash('Already in List!')
-            return redirect('/top/anime')
+            return redirect(url_for('anime_list'))
 
 @app.route('/animeList/sort/<string:sort_type>')
 @app.route('/animeList')
@@ -141,6 +126,29 @@ def delete_anime(id):
             return redirect(url_for('anime_list'))
     else:
         return redirect(url_for('login'))
+
+
+@app.route('/search/anime')
+def search_anime():
+    search_string = request.args['search_base']
+    search_results = []
+    response = get_search_results(search_string)
+    if response.status_code == 200:
+        json = response.json()
+        for i in range(8):
+            anime_id = json['results'][i]['mal_id']
+            anime = getAnime(anime_id)
+            search_results.append(anime)
+        id_dict = {}
+        for a in search_results:
+            anime = Lists.query.filter_by(user_id=current_user.id, media='anime',media_id=a.mal_id).first()
+            if anime:
+                id_dict[str(anime.media_id)] = anime.user_score
+        form = AddToListForm()
+        return render_template("anime_search_results.html",search_results=search_results, id_dict=id_dict, form=form)
+    else:
+        flash('Something went wrong')
+        return redirect(url_for('index'))
 
 
 
