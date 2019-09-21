@@ -1,10 +1,10 @@
-from flask import render_template, flash, redirect, request
+from flask import render_template, flash, redirect, request, url_for
 from app import app
 from app.forms import LoginForm, RegisterForm, AddToListForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User, TopAnime, Lists
 from app import db
-from helpers import getAnime
+from helpers import getAnime, get_mal_score
 
 @app.route('/')
 @app.route('/index')
@@ -56,8 +56,14 @@ def register():
 @app.route('/top/anime', methods =['GET','POST'])
 def top_anime():
     top_anime_list = TopAnime.query.all()
+    if current_user.is_authenticated:
+        id_dict = {}
+        for a in top_anime_list:
+            anime = Lists.query.filter_by(user_id=current_user.id, media='anime',media_id=a.mal_id).first()
+            if anime:
+                id_dict[str(anime.media_id)] = anime.user_score
     form = AddToListForm()
-    return render_template('topanime.html',top_anime_list=top_anime_list,form=form)
+    return render_template('topanime.html',top_anime_list=top_anime_list,form=form,id_dict=id_dict)
 
 # @app.route('/addToList/<string:id>&<string:media>', methods = ['GET','POST'])
 # def add_to_list(id, media):
@@ -92,9 +98,20 @@ def add_anime():
             flash('Already in List!')
             return redirect('/top/anime')
 
+@app.route('/animeList/sort/<string:sort_type>')
 @app.route('/animeList')
-def anime_list():
-    user_anime_list = Lists.query.filter_by(user_id=current_user.id, media = 'anime')
+def anime_list(sort_type='default'):
+    if sort_type == 'default':
+        user_anime_list = Lists.query.filter_by(user_id=current_user.id, media = 'anime').all()
+        print(user_anime_list)
+        user_anime_list.sort(key=lambda x: int(get_mal_score(x.media_id)))
+        print(user_anime_list)
+
+
+    elif sort_type == 'user':
+        user_anime_list = Lists.query.filter_by(user_id=current_user.id, media = 'anime').all()
+        user_anime_list.sort(key=lambda x: float(x.user_score), reverse=True)
+
     id_dict = {}
     id_list = []
     for e in user_anime_list:
@@ -105,7 +122,26 @@ def anime_list():
     for i in id_list:
         if i is not False:
             anime_list.append(getAnime(i))
-    return render_template('anime_list.html',anime_list=anime_list,id_dict=id_dict)
+    return render_template('anime_list.html',anime_list=anime_list,id_dict=id_dict)    
+    
+        
+
+
+@app.route('/delete/<string:id>')
+def delete_anime(id):
+    if current_user.is_authenticated:
+        anime = Lists.query.filter_by(user_id=current_user.id, media='anime',media_id=int(id)).first()
+        if anime:
+            db.session.delete(anime)
+            db.session.commit()
+            flash('Deleted from List!')
+            return redirect(url_for('anime_list'))
+        else:
+            flash('This should not have happened')
+            return redirect(url_for('anime_list'))
+    else:
+        return redirect(url_for('login'))
+
 
 
 

@@ -33,7 +33,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{{ url_for('top_anime')}}">Top Anime</a>
                 <a class="dropdown-item" href="#">Anime Search</a>
-                <a class="dropdown-item" href="#">My Anime</a>
+                <a class="dropdown-item" href="{{ url_for('anime_list')}}">My Anime</a>
             </div>
         </div>
         <div class="dropdown show">
@@ -74,15 +74,15 @@
         <a href="#" class="nav-item nav-link text-white">Games</a>
         <a href="#" class="nav-item nav-link text-white">Books</a> -->
         <ul class="navbar-nav ml-auto">
-        <form class = "form-inline">
-                <select class="form-control">
+        <form class = "form-inline" > 
+                <select class="form-control" name="select-category">
                         <option value="all">All</option>
                         <option value="anime">Anime</option>
                         <option value="movies">Movies</option>
                         <option value="games">Games</option>
                         <option value="books">Books</option>
                       </select>                      
-            <input type="search" class="form-control ml-auto" placeholder="Search"><button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
+            <input name="search-base" type="search" class="form-control ml-auto" placeholder="Search"><button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
         </form>
     </ul>
 

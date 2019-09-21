@@ -50,7 +50,23 @@ def cleanLists():
         db.session.commit()
         print('Lists cleaned!')
         return True
-        
-#if __name__ == '__main__':
+
+def get_mal_score(get_mal_id):
+    anime = Anime.query.filter_by(mal_id=get_mal_id).first()
+    if anime is None:
+        return 0
+    return anime.rank
+
+def get_search_results(search_string, page_number='1'):
+    search_string.strip()
+    search_string.replace(" ","%20")
+    page_number.strip()
+    api_url = 'https://api.jikan.moe/v3/search/anime/?q=' + str(search_string) +'&page=' + str(page_number)
+    response = requests.get(api_url)
+    print(response)
+
+
+if __name__ == '__main__':
     # cleanLists()
     # getTopAnime()
+    get_search_results('Gintama')
