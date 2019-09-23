@@ -86,6 +86,27 @@ body {
 
 }
 
+.oleo-script {
+  font-family: 'Oleo Script';
+}
+
+.font-arial-bold {
+  font-family: 'Verdana';
+  font-weight: bold;
+  font-size: 12px;
+}
+
+h2 {
+  font-family: 'Tahoma';
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
+}
+
 .top-anime-rank {
   font-size: 40px;
 }

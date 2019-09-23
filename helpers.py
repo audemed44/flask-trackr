@@ -74,7 +74,16 @@ def get_search_results(search_string, result_limit='8'):
             getAnime(anime_id)
     return response
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 #     # cleanLists()
 #     # getTopAnime()
      #get_search_results('Naruto')
+    user_scores = db.session.query(Lists.user_score).filter_by(user_id=1).all()
+    print(user_scores)
+    sum=0
+    for i in user_scores:
+        print(i.user_score)
+        sum += float(i.user_score)
+    num=Lists.query.filter_by(user_id=1).count()
+    print(num)
+    print(sum/num)

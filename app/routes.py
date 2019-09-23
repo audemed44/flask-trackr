@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app
 from app.forms import LoginForm, RegisterForm, AddToListForm
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, TopAnime, Lists
 from app import db
 from helpers import getAnime, get_mal_score, get_search_results
@@ -33,10 +33,8 @@ def login():
         return redirect('/index')
     return render_template('login.html', form=form)
 
-LoginManager.login_view = url_for('login')
-
-@login_required
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect('/index')
@@ -69,8 +67,8 @@ def top_anime():
     form = AddToListForm()
     return render_template('topanime.html',top_anime_list=top_anime_list,form=form,id_dict=id_dict)
 
-@login_required
 @app.route('/addAnime')
+@login_required
 def add_anime():
     form = AddToListForm()
     print(str(request.args['score']))
@@ -89,9 +87,9 @@ def add_anime():
             return redirect(url_for('anime_list'))
 
 
-@login_required
 @app.route('/animeList/sort/<string:sort_type>')
 @app.route('/animeList')
+@login_required
 def anime_list(sort_type='default'):
     if sort_type == 'default':
         user_anime_list = Lists.query.filter_by(user_id=current_user.id, media = 'anime').all()
@@ -118,8 +116,8 @@ def anime_list(sort_type='default'):
     
         
 
-@login_required
 @app.route('/delete/<string:id>')
+@login_required
 def delete_anime(id):
     if current_user.is_authenticated:
         anime = Lists.query.filter_by(user_id=current_user.id, media='anime',media_id=int(id)).first()
@@ -158,15 +156,18 @@ def search_anime():
         return redirect(url_for('index'))
 
 
-@login_required
 @app.route('/profile')
+@login_required
 def my_profile():
     number_of_anime = Lists.query.filter_by(user_id=current_user.id).count()
     user_scores_string = Lists.query.with_entities(Lists.user_score).filter_by(user_id=current_user.id).all()
-    user_scores = []
-    for u in user_scores_string:
-        user_scores.append(float(u))
-    mean_score = number_of_anime/user_scores
+    user_scores_sum = 0
+    if(user_scores_string):
+        for u in user_scores_string:
+            user_scores_sum = user_scores_sum + float(u.user_score)
+        mean_score = user_scores_sum/number_of_anime
+    else:
+        mean_score = 0
     return render_template("profile.html",number_of_anime=number_of_anime, mean_score=mean_score)
     # TODO: profile picture
     # TODO: add provisions for giving number of media with each status ie- watching, dropped, etc.

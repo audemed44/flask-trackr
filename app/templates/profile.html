@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block list_content %}
+<div class="container-fluid profile-page-container py-3 px-5">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="row text-center">{{current_user.username}}'s Profile</div>
+            <br>
+            <div class="row"><p><img src="{{ url_for('static',filename='images/profile_picture.png') }}" class="img-fluid rounded float-left profile-picture"></p></div>
+            <div class="row"><a href="{{url_for('anime_list')}}"class="btn btn-primary">Anime List</a></div></div>
+        <div class="col-sm-5">
+            <div class="row pl-3">No biography yet. <br>
+            <br>
+            <br></div>
+            <div class="row border-bottom"><p class="text-center pl-3"><h2>Statistics</h2></p></div>
+            <div class="row">
+                <div class="col">Number of Anime: <b>{{number_of_anime}}</b></div>
+                <div class="col">Mean Score: <b>{{mean_score}}</b></div>
+            </div>  
+        </div>
+        <div class="col-sm-5 text-right">
+                <div class="row pl-3"><i class="fa fa-edit"></i>Write now?<br>
+                    <br>
+                    <br></div>
+            <div class="row border-bottom"><p class="text-center pl-3"><h2>Latest Updates</h2></p></div>
+        </div>  
+    </div>
+    
+</div>
+{% endblock %}
