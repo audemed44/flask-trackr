@@ -1,4 +1,4 @@
-# TRACKR
+# Trackr
 
 A hobby project aimed to solve my personal problem of losing track of the media I consume all combined in one place, which can be categorized into mostly four brackets: Anime, Movies/TV Shows, Books, Games. This project uses a multitude of API's available online for this tracking purpose (jikan-moe, omdb, igdb etc) and uses the data provided by them. 
 
@@ -6,23 +6,23 @@ A hobby project aimed to solve my personal problem of losing track of the media 
 
 Made using Flask, a python micro web framework.
 
-## FEATURES
+## Features
 
 - Login/Register 
  -- ![Login Page](screenshots/login_page.PNG)
- -- ![Register Page](screenshots/register_page.png)
+ -- ![Register Page](screenshots/register_page.PNG)
  
 - Top Anime
- -- ![Top Anime Page](screenshots/top_anime.png)
+ -- ![Top Anime Page](screenshots/top_anime.PNG)
 
 - Add to List
- -- ![Add to List dropdown](screenshots/add_to_list.png)
+ -- ![Add to List dropdown](screenshots/add_to_list.PNG)
 
 - Search Anime
- -- ![Search Results Page](screenshots/search_page.png)
+ -- ![Search Results Page](screenshots/search_page.PNG)
 
 - Personal List
- -- ![Personal List Page](screenshots/personal_list.png)
+ -- ![Personal List Page](screenshots/personal_list.PNG)
 
 - Profile Page
- -- ![Profile Page](screenshots/profile_page.png)
+ -- ![Profile Page](screenshots/profile_page.PNG)
