@@ -9,7 +9,7 @@ Made using Flask, a python micro web framework.
 ## FEATURES
 
 - Login/Register 
- -- ![Login Page](screenshots/login_page.png?raw=true)
+ -- ![Login Page](screenshots/login_page.PNG)
  -- ![Register Page](screenshots/register_page.png)
  
 - Top Anime
