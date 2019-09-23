@@ -31,7 +31,7 @@ class AddToListForm(FlaskForm):
     score = StringField('Score', validators=[DataRequired()])
     status = SelectField('Status', choices=[('completed', 'Completed'), ('watching', 'Watching'), ('dropped', 'Dropped'),('ptw','Plan to Watch')])
     submit = SubmitField('Add to List')
-   # def validate_score(self, score):
-   #     if float(score) > 10.0 or float(score) < 0.0:
-   #         raise ValidationError('Score must be between 0 to 10')
+    def validate_score(self, score):
+        if float(score) > 10.0 or float(score) < 0.0:
+            raise ValidationError('Score must be between 0 to 10')
      

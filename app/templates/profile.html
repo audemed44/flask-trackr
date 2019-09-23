@@ -1,13 +1,19 @@
 {% extends "index.html" %}
 {% block list_content %}
-<div class="container-fluid profile-page-container py-3 px-5">
+<div class = "container-fluid">
     <div class="row">
-        <div class="col-sm-2">
+<div class="col-sm-2 pl-5">
+    <div class="row">
+        <div class="col">
             <div class="row text-center">{{current_user.username}}'s Profile</div>
             <br>
             <div class="row"><p><img src="{{ url_for('static',filename='images/profile_picture.png') }}" class="img-fluid rounded float-left profile-picture"></p></div>
             <div class="row"><a href="{{url_for('anime_list')}}"class="btn btn-primary">Anime List</a></div></div>
-        <div class="col-sm-5">
+    </div>
+</div>
+<div class="container profile-page-container col-sm-10">
+    <div class="row">
+            <div class="col-sm-5">
             <div class="row pl-3">No biography yet. <br>
             <br>
             <br></div>
@@ -21,9 +27,22 @@
                 <div class="row pl-3"><i class="fa fa-edit"></i>Write now?<br>
                     <br>
                     <br></div>
-            <div class="row border-bottom"><p class="text-center pl-3"><h2>Latest Updates</h2></p></div>
+            <div class="row border-bottom"><p class="text-center pl-3"><h2>Latest Updates</h2></p>
+            </div>
         </div>  
     </div>
-    
+    <div class="row">
+        {% if last_anime %}
+        <div class="col-sm-5 ml-auto"><img src="{{last_anime.image_url}}" style="width:50px; height:70px; margin-right: 15px;">{{last_anime.title}}<br>
+        <p style="margin-left: 65px;">Your Rating: <b>{{last_anime_score}}</b></p>
+        </div>
+        {% else %}
+        <div class="col-sm-5 ml-auto">No new updates!<br>
+            
+            </div>
+        {% endif %}
+    </div>
+</div>
+</div>
 </div>
 {% endblock %}

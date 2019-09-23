@@ -2,6 +2,7 @@
 {% block list_content %}
 
 <center>
+    
         <div class="table-container">
             <table class="table">
             <thead class = "thead-light">
@@ -21,17 +22,34 @@
                     <td>{{ anime.mal_score }}</td>
                     {% if id_dict[anime.mal_id|string] %}
                     <td>{{ id_dict[anime.mal_id|string] }}</td>
-                    <td>Edit</td>
+                    <td><form class='d-inline' action="{{url_for('delete_anime',id=anime.mal_id, base_url='search_anime')}}"><input type="hidden" name="q" value="{{ request.url }}"><button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button></form>
+                        <a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class = "fa fa-edit"><form class="dropdown-menu p-4" action ="{{url_for('edit_anime', base_url='search_anime')}}" method="GET">
+                            <div class="form-group">
+                              {{form.score.label}} <br>
+                              {{form.score(class_="form_control")}} {% for error in form.score.errors %}
+                              <span style="color: red;">[{{ error }}]</span> {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                    {{form.status.label}} <br>
+                                    {{form.status(class_="form_control")}}
+                            </div>
+                            {{ form.media_id(value=anime.mal_id)}}
+                            {{ form.media(value='anime')}}
+                            <input type="submit" value="Edit" class="btn btn-primary">
+                            <input type="hidden" name="parent-url" value="top_anime">
+                            <input type="hidden" name="q" value="{{ request.url }}">
+                          </form></i></a></td>
                     {%  else %}
                     <td>N/A</td>
                     <td>
-                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            +
+                        <a class="nav-link dropdown-toggle btn btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add to List
                           </a>
-                        <form class="dropdown-menu p-4" action ="{{url_for('add_anime')}}" method="GET" novalidate>
+                        <form class="dropdown-menu p-4" action ="{{url_for('add_anime', base_url='search_anime')}}" method="GET">
                             <div class="form-group">
                               {{form.score.label}} <br>
-                              {{form.score(class_="form_control")}}
+                              {{form.score(class_="form_control")}} {% for error in form.score.errors %}
+                              <span style="color: red;">[{{ error }}]</span> {% endfor %}
                             </div>
                             <div class="form-group">
                                     {{form.status.label}} <br>
@@ -40,8 +58,7 @@
                             {{ form.media_id(value=anime.mal_id)}}
                             {{ form.media(value='anime')}}
                             {{form.submit(class_="btn btn-primary")}}
-                            <input type="hidden" name="parent-url" value="search_anime">
-                            <input type="submit" class="btn btn-primary" value="+">
+                            <input type="hidden" name="q" value="{{ request.url }}">
                           </form>
                     </a></td>
                     {% endif %}
