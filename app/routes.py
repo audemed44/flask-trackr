@@ -6,6 +6,7 @@ from app.models import User, TopAnime, Lists
 from app import db
 from helpers import getAnime, get_mal_score, get_search_results
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -32,6 +33,9 @@ def login():
         return redirect('/index')
     return render_template('login.html', form=form)
 
+LoginManager.login_view = url_for('login')
+
+@login_required
 @app.route('/logout')
 def logout():
     logout_user()
@@ -65,6 +69,7 @@ def top_anime():
     form = AddToListForm()
     return render_template('topanime.html',top_anime_list=top_anime_list,form=form,id_dict=id_dict)
 
+@login_required
 @app.route('/addAnime')
 def add_anime():
     form = AddToListForm()
@@ -83,6 +88,8 @@ def add_anime():
             flash('Already in List!')
             return redirect(url_for('anime_list'))
 
+
+@login_required
 @app.route('/animeList/sort/<string:sort_type>')
 @app.route('/animeList')
 def anime_list(sort_type='default'):
@@ -111,7 +118,7 @@ def anime_list(sort_type='default'):
     
         
 
-
+@login_required
 @app.route('/delete/<string:id>')
 def delete_anime(id):
     if current_user.is_authenticated:
@@ -149,6 +156,23 @@ def search_anime():
     else:
         flash('Something went wrong')
         return redirect(url_for('index'))
+
+
+@login_required
+@app.route('/profile')
+def my_profile():
+    number_of_anime = Lists.query.filter_by(user_id=current_user.id).count()
+    user_scores_string = Lists.query.with_entities(Lists.user_score).filter_by(user_id=current_user.id).all()
+    user_scores = []
+    for u in user_scores_string:
+        user_scores.append(float(u))
+    mean_score = number_of_anime/user_scores
+    return render_template("profile.html",number_of_anime=number_of_anime, mean_score=mean_score)
+    # TODO: profile picture
+    # TODO: add provisions for giving number of media with each status ie- watching, dropped, etc.
+
+
+    
 
 
 
