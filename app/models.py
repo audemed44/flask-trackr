@@ -29,6 +29,7 @@ class Lists(db.Model):
     media = db.Column(db.String(7))
     media_id = db.Column(db.Integer)
     user_score = db.Column(db.String(4))
+    status = db.Column(db.String(25))
 
     def __repr__(self):
         return '<List {} {} {} {}>'.format(self.user_id,self.media_id, self.user_score, self.media)

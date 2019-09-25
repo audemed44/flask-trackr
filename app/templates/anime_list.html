@@ -15,6 +15,7 @@
         {% else %}
         <th scope="col"><a href="{{url_for('anime_list')}}">My Score</a</th>
         {% endif %}
+        <th scope="col">Status</th>
         <th scope="col">Delete</th>
         <th scope="col">Edit</th>
 
@@ -26,7 +27,25 @@
                 <td class = "top-anime-rank">{{ anime.rank }}</td>
                 <td><img src="{{anime.image_url}}" style="width: 50px; height: 70px; margin-right:15px;"/>{{ anime.title }}</td>
                 <td>{{ anime.mal_score }}</td>
-                <td>{{ id_dict[anime.mal_id|string] }}</td>
+                <td>{{ id_dict[anime.mal_id|string][0] }}</td>
+                <td>
+                    {% if id_dict[anime.mal_id|string][1] == 'Watching' %}
+                    {% set status_class = "btn btn-outline-primary" %}
+                    {% elif id_dict[anime.mal_id|string][1] == 'Completed' %}
+                    {% set status_class = "btn btn-outline-success" %}
+                    {% elif id_dict[anime.mal_id|string][1] == 'Dropped' %}
+                    {% set status_class = "btn btn-outline-danger" %}
+                    {% elif id_dict[anime.mal_id|string][1] == 'Plan to Watch' %}
+                    {% set status_class = "btn btn-outline-info" %}
+                    {% elif id_dict[anime.mal_id|string][1] == 'On-Hold' %}
+                    {% set status_class = "btn btn-outline-warning" %}
+                    {% else %}
+                    {% set status_class = "btn btn-outline-secondary" %}
+                    {% endif %}
+                    <a href="#" class = '{{status_class}}'>{{id_dict[anime.mal_id|string][1]}}</a>
+
+
+                </td>
                 <td><a href="{{url_for('delete_anime',id=anime.mal_id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                 <td><a href="#" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class = "fa fa-edit"><form class="dropdown-menu p-4" action ="{{url_for('edit_anime')}}" method="GET">
                     <div class="form-group">

@@ -77,8 +77,7 @@ def add_anime(base_url='anime_list'):
         exists = Lists.query.filter_by(user_id=current_user.id, media=request.args['media'], media_id=request.args['media_id']).first()
         print(exists)
         if exists is None:
-            list_item = Lists(user_id=current_user.id, media=request.args['media'], media_id=request.args['media_id'], user_score=request.args['score'])
-            print(list_item)
+            list_item = Lists(user_id=current_user.id, media=request.args['media'], media_id=request.args['media_id'], user_score=request.args['score'], status=request.args['status'])
             db.session.add(list_item)
             db.session.commit()
             flash('Added to List!')
@@ -101,6 +100,7 @@ def edit_anime(base_url='anime_list'):
         exists = Lists.query.filter_by(user_id=current_user.id, media=request.args['media'], media_id=request.args['media_id']).first()
         if exists:
             exists.user_score = request.args['score']
+            exists.status = request.args['status']
             db.session.commit()
             flash('Edited score!')
             if base_url == 'search_anime':
@@ -121,9 +121,7 @@ def anime_list(sort_type='default'):
 
     if sort_type == 'default':
         user_anime_list = Lists.query.filter_by(user_id=current_user.id, media = 'anime').all()
-        print(user_anime_list)
         user_anime_list.sort(key=lambda x: int(get_mal_score(x.media_id)))
-        print(user_anime_list)
 
 
     elif sort_type == 'user':
@@ -133,8 +131,7 @@ def anime_list(sort_type='default'):
     id_dict = {}
     id_list = []
     for e in user_anime_list:
-        id_dict[str(e.media_id)] = e.user_score
-        print(id_dict)
+        id_dict[str(e.media_id)] = e.user_score, e.status
         id_list.append(e.media_id)
     anime_list = []
     for i in id_list:

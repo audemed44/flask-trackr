@@ -29,7 +29,7 @@ class AddToListForm(FlaskForm):
     media_id = HiddenField('Media_ID')
     media = HiddenField('Media')
     score = StringField('Score', validators=[DataRequired()])
-    status = SelectField('Status', choices=[('completed', 'Completed'), ('watching', 'Watching'), ('dropped', 'Dropped'),('ptw','Plan to Watch')])
+    status = SelectField('Status', choices=[('Completed', 'Completed'), ('Watching', 'Watching'), ('Dropped', 'Dropped'),('Plan to Watch','Plan to Watch'), ('On Hold','On Hold')])
     submit = SubmitField('Add to List')
     def validate_score(self, score):
         if float(score) > 10.0 or float(score) < 0.0:
