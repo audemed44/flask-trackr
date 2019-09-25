@@ -59,4 +59,22 @@ class Anime(db.Model):
 
     def __repr__(self):
         return '<Anime {} {} {}'.format(self.rank, self.title, self.mal_score)
+
+
+class MAL_Database(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    rank = db.Column(db.Integer)
+    mal_id = db.Column(db.Integer, index=True, unique=True)
+    title = db.Column(db.String(128))
+    anime_type = db.Column(db.String(20))
+    start_date = db.Column(db.String(50))
+    end_date = db.Column(db.String(50))
+    image_url = db.Column(db.String(256), index=True)
+    mal_url = db.Column(db.String(256))
+    episodes = db.Column(db.Integer)
+    mal_score = db.Column(db.String(4))
+    members = db.Column(db.Integer)
+
+    def __repr__(self):
+        return 'DB: ID-{} Rank-{} Title-{} Episodes-{}'.format(self.mal_id,self.rank,self.title,self.episodes)
     
